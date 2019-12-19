@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  database:
+    image: 'postgres:11.5'
+    container_name: 'eatseazy-database'
+    environment:
+      - POSTGRES_DB=eatseazy
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - ./database:/database
+    ports:
+      - 54032:5432
+
+  backend:
+    build:
+      dockerfile: ./docker/Dockerfile
+      context: ../
+    image: 580496557684.dkr.ecr.eu-west-2.amazonaws.com/eatseazy/backend
+    container_name: eatseazy-backend
+    env_file:
+      - ../.env
+    ports:
+      - 8081:80
+    links:
+      - database:database
+    depends_on:
+      - database

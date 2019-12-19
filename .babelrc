@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [ "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ]
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@models": "./src/app/models",
+        "@modules": "./src/app/modules"
+      }
+    }]
+  ]
+}

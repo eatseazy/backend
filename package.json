@@ -1,0 +1,51 @@
+{
+  "name": "eatseazy-backend",
+  "version": "1.0.0",
+  "description": "Eatseazy backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./build/server.js",
+    "dev": "nodemon ./src/server.js --exec babel-node",
+    "build": "yarn clean && yarn build-app",
+    "build-app": "babel -d ./build ./src",
+    "clean": "yarn rimraf build && mkdir build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gi-jutsu/eatseazy-backend.git"
+  },
+  "author": "Dylan DE SOUSA <dylan.de.sousa@outlook.fr>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gi-jutsu/eatseazy-backend/issues"
+  },
+  "homepage": "https://github.com/Gi-jutsu/eatseazy-backend#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "@graphql-modules/core": "^0.7.13",
+    "@graphql-modules/utils": "^0.4.0",
+    "apollo-server": "^2.9.9",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "bcryptjs": "^2.4.3",
+    "core-js": "^3.4.1",
+    "dotenv": "^8.2.0",
+    "graphql-iso-date": "^3.6.1",
+    "graphql-tag": "^2.10.1",
+    "jsonwebtoken": "^8.5.1",
+    "merge-graphql-schemas": "^1.7.3",
+    "mongoose": "^5.7.8",
+    "pg": "^7.14.0",
+    "pg-hstore": "^2.3.3",
+    "regenerator-runtime": "^0.13.3",
+    "rimraf": "^3.0.0",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1",
+    "uuid": "^3.3.3"
+  }
+}

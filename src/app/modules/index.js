@@ -1,0 +1,6 @@
+export { default as AuthModule } from './auth'
+export { default as BookingModule } from './booking'
+export { default as FoodModule } from './food'
+export { default as MenuModule } from './menu'
+export { default as RestaurantModule } from './restaurant'
+export { default as UserModule } from './user'
