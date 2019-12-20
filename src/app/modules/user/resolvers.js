@@ -26,7 +26,7 @@ export default {
 
       const newUser = await User.create({ ...input })
       if (role === 'RESTAURANT') {
-        await Restaurant.create({ UserId: user.id })
+        await Restaurant.create({ UserId: newUser.id })
       }
 
       return newUser.createToken()
