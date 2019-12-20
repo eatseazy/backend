@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     phone: DataTypes.STRING,
     description: DataTypes.STRING,
+    address: DataTypes.STRING,
+    city: DataTypes.STRING,
+    zipCode: DataTypes.STRING,
   })
 
   Restaurant.associate = models => {

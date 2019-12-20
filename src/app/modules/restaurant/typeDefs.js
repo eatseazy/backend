@@ -24,6 +24,9 @@ export default gql`
     bookings: [Booking]!
     menus: [Menu]!
     description: String
+    address: String,
+    city: String,
+    zipCode: String,
     tags: [String]
     Owner: User!
   }
