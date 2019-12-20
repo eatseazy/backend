@@ -65,7 +65,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "eatseazy_production_backend"
+      "name": "eatseazy_backend"
     }
   ],
   "placementConstraints": [],
