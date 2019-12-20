@@ -1,4 +1,3 @@
-//import { User } from '../../../database/models'
 import models from '@models'
 
 const {
