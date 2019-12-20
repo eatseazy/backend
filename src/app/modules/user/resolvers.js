@@ -22,7 +22,12 @@ export default {
       return await user.createToken()
     },
     signup: async (_, { input }) => {
+      const { role } = input
+
       const newUser = await User.create({ ...input })
+      if (role === 'RESTAURANT') {
+        await Restaurant.create({ UserId: user.id })
+      }
 
       return newUser.createToken()
     },
