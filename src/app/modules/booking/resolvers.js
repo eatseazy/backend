@@ -1,11 +1,6 @@
 import { Booking, Restaurant } from '../../../database/models'
 
 export default {
-  Query: {
-    bookings: async (...args) => {
-      return "ok"
-    }
-  },
   Mutation: {
     createBooking: async (...args) => {
       const [, { input }, { loggedUser }] = args

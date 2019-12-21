@@ -2,12 +2,7 @@ import gql from 'graphql-tag'
 
 export default gql`
   schema {
-    query: Query
     mutation: Mutation
-  }
-
-  type Query {
-    menus: [Menu]!
   }
 
   type Mutation {

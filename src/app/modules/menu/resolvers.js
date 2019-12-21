@@ -1,11 +1,6 @@
 import { Menu, Restaurant } from '../../../database/models'
 
 export default {
-  Query: {
-    menus: async (...args) => {
-      return "ok"
-    }
-  },
   Mutation: {
     createMenu: async (...args) => {
       const [, { input }, { loggedUser }] = args
