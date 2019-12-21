@@ -29,17 +29,11 @@ export default {
         where: {
           UserId: user.id
         },
-        include: [
-          {
-            model: User,
-            as: 'Owner',
-          },
-        ],
-        attributes: [
-          'name',
-          'phone',
-          'description',
-        ],
+        include: [{
+          model: User,
+          as: 'Owner',
+        }],
+        attributes: ['name','phone','description'],
       })
 
       if (!restaurant) throw new Error('No restaurant found for current user')
