@@ -14,17 +14,13 @@ export const resolversComposition = ({ typeDefs }) => {
   for (const fieldPath in fieldsAndTypeToDirectivesMap) {
     const directives = fieldsAndTypeToDirectivesMap[fieldPath]
 
-    if (directives.length > 0) {
-      result[fieldPath] = directives.map(directive => {
-        if (DIRECTIVE_TO_GUARD[directive.name]) {
-          const mapperFn =  DIRECTIVE_TO_GUARD[directive.name]
+    if (directives.length < 0) continue
 
-          return mapperFn(directive.args)
-        }
+    result[fieldPath] = directives.map(directive => {
+      if (!DIRECTIVE_TO_GUARD[directive.name]) return null
 
-        return null
-      }).filter(a => a)
-    }
+      return DIRECTIVE_TO_GUARD[directive.name](directive.args)
+    }).filter(a => a)
   }
 
   return result
