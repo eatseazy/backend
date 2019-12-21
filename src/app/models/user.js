@@ -5,18 +5,14 @@ import {
 } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
-const _generatePasswordHash = password => {
-  return new Promise( (resolve, reject) => {
-    genSalt(10, (error, salt) => {
-      if (error) return reject(error)
+const _generatePasswordHash = async password => {
+   try {
+     const salt = await genSalt(10)
 
-      hash(password, salt, (error, hash) => {
-        if (error) return reject(error)
-
-        resolve(hash)
-      })
-    })
-  })
+     return await hash(password, salt)
+   } catch (error) {
+     console.log('[MODELS:USER][_generatePasswordHash] > ', error)
+   }
 }
 
 module.exports = (sequelize, DataTypes) => {
@@ -36,12 +32,8 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     hooks: {
-      beforeCreate: user => {
-        return _generatePasswordHash(user.password)
-          .then(hash => user.password = hash)
-          .catch(error => {
-            if (error) console.log('[MODELS:USER][beforeCreate] > ', error)
-          })
+      beforeCreate: async user => {
+        user.password = await _generatePasswordHash(user.password)
       },
     },
   })
