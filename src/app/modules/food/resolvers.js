@@ -1,4 +1,4 @@
-import { Food } from '../../../database/models'
+/*import { Food } from '../../../database/models'
 
 export default {
   Query: {
@@ -31,3 +31,4 @@ export default {
     }
   }
 }
+*/

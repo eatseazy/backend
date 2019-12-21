@@ -1,4 +1,4 @@
-import { Menu, Restaurant } from '../../../database/models'
+/*import { Menu, Restaurant } from '../../../database/models'
 
 export default {
   Mutation: {
@@ -18,4 +18,4 @@ export default {
       return newMenu.populate('restaurant').execPopulate()
     }
   }
-}
+}*/
