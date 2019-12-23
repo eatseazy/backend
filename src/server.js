@@ -8,6 +8,6 @@ const server = new ApolloServer({
   context: AppModule.context
 })
 
-server.listen(PORT, ({ url }) => {
-  console.log(`Server ready at ${url}`)
+server.listen(PORT, () => {
+  console.log(`Server ready`)
 })
