@@ -13,18 +13,14 @@ export default {
   },
   Mutation: {
     login: async (_, { input }) => {
-      try {
-        const { email, password } = input
+      const { email, password } = input
 
-        const user = await User.findOne({ where:  { email } })
+      const user = await User.findOne({ where:  { email } })
 
-        if (!user) throw new Error('Unknown user')
-        if (!user.validPassword(password)) throw new Error('Incorrect credentials')
+      if (!user) throw new Error('Unknown user')
+      if (!user.validPassword(password)) throw new Error('Incorrect credentials')
 
-        return await user.createToken()
-      } catch (error) {
-        console.log("[MODULES:USER][RESOLVERS:LOGIN] > ", error)
-      }
+      return await user.createToken()
     },
     signup: async (_, { input }) => {
       const { role } = input
