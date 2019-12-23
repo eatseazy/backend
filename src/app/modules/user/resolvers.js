@@ -15,7 +15,7 @@ export default {
     login: async (_, { input }) => {
       const { email, password } = input
 
-      const user = await User.findOne({ where:  { email } })
+      const user = await User.findOne({ where: { email } })
 
       if (!user) throw new Error('Unknown user')
       if (!user.validPassword(password)) throw new Error('Incorrect credentials')
