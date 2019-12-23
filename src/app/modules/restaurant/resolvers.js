@@ -33,7 +33,7 @@ export default {
           model: User,
           as: 'Owner',
         }],
-        attributes: ['name','phone','description'],
+        attributes: ['name','phone','description','address','city','zipCode'],
       })
 
       if (!restaurant) throw new Error('No restaurant found for current user')
