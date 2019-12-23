@@ -14,7 +14,13 @@
         }
       },
       "entryPoint": null,
-      "portMappings": [],
+      "portMappings": [
+        {
+         "hostPort": 80,
+         "protocol": "tcp",
+         "containerPort": 80
+       }
+      ],
       "command": null,
       "linuxParameters": null,
       "cpu": 0,
