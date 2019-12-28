@@ -11,6 +11,7 @@
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
+        "lib": "./src/lib",
         "@models": "./src/app/models",
         "@modules": "./src/app/modules"
       }

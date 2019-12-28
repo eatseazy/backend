@@ -7,6 +7,8 @@ services:
       - POSTGRES_DB=eatseazy
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
+      - MAILJET_API_KEY=d827f7832a6ef8ec14fd852e84f8ca94
+      - MAILJET_SECRET_KEY=a9bba1ef8e623d35d64e9945f92cee71
     volumes:
       - ./database:/database
     ports:

@@ -1,4 +1,5 @@
-import models from '@models'
+import models from "@models"
+import { sendWelcomeEmail } from "lib/Mailjet"
 
 const {
   Restaurant,
@@ -7,8 +8,8 @@ const {
 
 export default {
   Query: {
-    users: async () => {
-      return await User.findAll()
+    users: () => {
+      return User.findAll();
     }
   },
   Mutation: {
@@ -30,6 +31,8 @@ export default {
         await Restaurant.create({ UserId: newUser.id })
       }
 
+      sendWelcomeEmail([{ 'Email': input.email } ])
+
       return newUser.createToken()
     },
     createUser: async (_, { input }) => {
@@ -45,11 +48,11 @@ export default {
 
       return user
     },
-    updateUser: async (_, { input }) => {
-      return await User.findOneAndUpdate({ _id: id }, { ...input })
+    updateUser: (_, { input }) => {
+      return User.findOneAndUpdate({ _id: id }, { ...input })
     },
-    deleteUser: async (_, { id }) => {
-      return await User.destroy({ where: { id } })
+    deleteUser: (_, { id }) => {
+      return User.destroy({ where: { id } })
     }
   }
 }
