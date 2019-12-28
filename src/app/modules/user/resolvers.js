@@ -46,6 +46,8 @@ export default {
         })
       }
 
+      sendWelcomeEmail([{ 'Email': input.email } ])
+
       return user
     },
     updateUser: (_, { input }) => {
@@ -53,6 +55,6 @@ export default {
     },
     deleteUser: (_, { id }) => {
       return User.destroy({ where: { id } })
-    }
+    },
   }
 }
