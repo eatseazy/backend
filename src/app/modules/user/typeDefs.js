@@ -15,6 +15,7 @@ export default gql`
     deleteUser(id: ID!): Boolean
     login(input: LoginInput!): String!
     signup(input: UserInput!): String!
+    activate(email: String!, token: String!): Boolean!
   }
 
   type User {
@@ -29,7 +30,6 @@ export default gql`
     email: String!
     password: String!
     role: Role!
-    status: Status!
   }
 
   input LoginInput {

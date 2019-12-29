@@ -1,18 +1,16 @@
 version: '3.7'
 services:
   database:
-    image: 'postgres:11.5'
-    container_name: 'eatseazy-database'
+    image: postgres
+    container_name: eatseazy-database
     environment:
       - POSTGRES_DB=eatseazy
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
-      - MAILJET_API_KEY=d827f7832a6ef8ec14fd852e84f8ca94
-      - MAILJET_SECRET_KEY=a9bba1ef8e623d35d64e9945f92cee71
     volumes:
       - ./database:/database
     ports:
-      - 54032:5432
+      - 5432:5432
 
   backend:
     build:
@@ -23,7 +21,7 @@ services:
     env_file:
       - ../.env
     ports:
-      - 8081:80
+      - 8080:80
     links:
       - database:database
     depends_on:

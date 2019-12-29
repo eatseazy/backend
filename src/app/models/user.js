@@ -62,6 +62,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = models => {
     models.User.hasOne(models.Restaurant)
+    models.User.hasOne(models.VerificationToken)
   }
 
   return User
