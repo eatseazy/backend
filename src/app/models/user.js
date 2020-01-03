@@ -35,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate: async user => {
         user.password = await _generatePasswordHash(user.password)
       },
+      beforeUpdate: async user => {
+        user.password = await _generatePasswordHash(user.password)
+      }
     },
   })
 
@@ -63,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = models => {
     models.User.hasOne(models.Restaurant)
     models.User.hasOne(models.VerificationToken)
+    models.User.hasOne(models.PasswordResetToken)
   }
 
   return User

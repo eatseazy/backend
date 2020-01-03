@@ -12,6 +12,7 @@
       "root": ["./src"],
       "alias": {
         "lib": "./src/lib",
+        "@services": "./src/app/services",
         "@models": "./src/app/models",
         "@modules": "./src/app/modules"
       }

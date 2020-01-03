@@ -7,8 +7,8 @@ const {
 
 export default {
   Query: {
-    restaurants: async () => {
-      return await Restaurant.findAll({
+    restaurants: () => {
+      return Restaurant.findAll({
         include: [
           { model: User, as: 'Owner' }
         ]

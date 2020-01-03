@@ -1,6 +1,8 @@
-export const validateRole = role => next => (root, args, context, info) => {
+import { AuthenticationError } from 'apollo-server'
+
+export default role => next => (root, args, context, info) => {
   if (context.loggedUser.role !== role) {
-    throw new Error('Unauthorized !')
+    throw new AuthenticationError('Unauthorized !')
   }
 
   return next(root, args, context, info)

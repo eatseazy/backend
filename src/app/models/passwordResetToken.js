@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const VerificationToken = sequelize.define('VerificationToken', {
+  const PasswordResetToken = sequelize.define('PasswordResetToken', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -15,15 +15,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
+  },{
+    updatedAt: false,
   })
 
-  VerificationToken.associate = models => {
-    models.VerificationToken.belongsTo(models.User, {
+  PasswordResetToken.associate = models => {
+    models.PasswordResetToken.belongsTo(models.User, {
       as: 'User',
       foreignKey: 'UserId',
       foreignKeyConstraint: true,
     })
   }
 
-  return VerificationToken
+  return PasswordResetToken
 }

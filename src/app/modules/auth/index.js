@@ -8,6 +8,7 @@ const AuthModule = new GraphQLModule({
   resolvers,
   context: async ({ req }) => {
     const token = req.headers['authorization']
+
     if (req && token) {
       try {
         return { loggedUser: await verify(token, process.env.JWT_SECRET) }

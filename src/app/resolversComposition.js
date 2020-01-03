@@ -1,6 +1,8 @@
 import { getFieldsWithDirectives } from '@graphql-modules/utils'
-import { authenticated } from './guards/authenticated'
-import { validateRole } from './guards/validateRole'
+import {
+  authenticated,
+  validateRole,
+} from './guards'
 
 const DIRECTIVE_TO_GUARD = {
   auth: () => authenticated,

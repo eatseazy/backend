@@ -3,7 +3,6 @@ import { resolversComposition } from './resolversComposition'
 import {
   AuthModule,
   BookingModule,
-  FoodModule,
   MenuModule,
   RestaurantModule,
   UserModule,
@@ -13,7 +12,6 @@ const AppModule = new GraphQLModule({
   imports: [
     AuthModule,
     BookingModule,
-    FoodModule,
     MenuModule,
     RestaurantModule,
     UserModule

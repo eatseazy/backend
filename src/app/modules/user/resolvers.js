@@ -1,97 +1,84 @@
-import models from '@models'
 import crypto from 'crypto-random-string'
-import { sendVerificationEmail } from 'lib/Mailjet'
+import {
+  createUser,
+  createPasswordResetToken,
+  createVerificationToken,
+  updateUser,
+  findUser,
+  findUsers,
+  findPasswordResetToken,
+} from '@services'
 
-const {
-  Restaurant,
-  User,
-  VerificationToken,
-} = models
+import {
+  sendVerificationEmail,
+  sendResetPasswordEmail,
+} from 'lib/Mailjet'
 
 export default {
   Query: {
     users: () => {
-      return User.findAll();
+      return findUsers();
     }
   },
   Mutation: {
-    login: async (_, { input }) => {
-      const { email, password } = input
+    login: async (_, { email, password }) => {
+      const user = await findUser({ email })
 
-      const user = await User.findOne({
-        where: {email},
-      })
-
-      if (!user) throw new Error('Unknown user')
-      if (user.status !== 'ENABLED') throw Error('User not enabled')
-      if (!user.validPassword(password)) throw new Error('Incorrect credentials')
+      if (!user) throw Error('Utilisateur inexistant')
+      if (user.status === 'DISABLED') throw Error("Votre compte n'est pas activé")
+      if (user.status === 'BLOCKED') throw Error('Votre compte a été bloqué')
+      if (! await user.validPassword(password)) throw Error("La combinaison nom d'utilisateur/mot de passe fournie n'existe pas")
 
       return await user.createToken()
     },
-    signup: async (_, { input }) => {
-      const { role } = input
-
-      const user = await User.create({
-        ...input,
-        'status': 'DISABLED',
-      })
-      const verificationToken = await VerificationToken.create({
-        UserId: user.id,
-        token: crypto({length: 16}),
-      })
-
-      if (role === 'RESTAURANT') {
-        await Restaurant.create({
-          UserId: user.id
-        })
-      }
-
-      sendVerificationEmail(user.email, verificationToken.token)
-
-      return newUser.createToken()
-    },
     activate: async (_, { email, token }) => {
-      const user = await User.findOne({ where: { email }})
+      const user = await findUser({ email })
 
-      if (!user) throw Error('Aucun utilisateur trouvé')
-      if (user.status !== 'DISABLED') throw Error('Votre compte est déjà activé')
+      if (!user) throw Error('Utilisateur inexistant')
+      if (user.status === 'ENABLED') throw Error('Votre compte est déjà activé')
+      if (user.status === 'BLOCKED') throw Error('Votre compte a été bloqué')
 
-      const verificationToken = await VerificationToken.findOne({ where: { token }})
-      if (verificationToken) {
-        user.update({ status: (token === verificationToken.token) ? 'ENABLED':'DISABLED' })
+      const verificationToken = await findVerificationToken({
+        token,
+        UserId: user.id,
+      })
+
+      if (verificationToken && token === verificationToken.token) {
+        await updateUser({status: 'ENABLED'})
       }
 
       return user.status === 'ENABLED'
     },
     createUser: async (_, { input }) => {
-      const { role } = input
-
-      const user = await User.create({
-        ...input,
-        'status': 'DISABLED',
-      })
-      const verificationToken = await VerificationToken.create({
-        UserId: user.id,
-        token: crypto({length: 16}),
-      })
-
-      if (role === 'RESTAURANT') {
-        await Restaurant.create({
-          UserId: user.id
-        })
-      }
-
-      console.log(verificationToken.token)
+      const user = await createUser(input)
+      const verificationToken = await createVerificationToken(user.id, crypto({ length: 16 }))
 
       sendVerificationEmail(user.email, verificationToken.token)
 
       return user
     },
-    updateUser: (_, { input }) => {
-      return User.findOneAndUpdate({ _id: id }, { ...input })
+    triggerPasswordReset: async (_, { email }) => {
+      const user = await findUser({ email })
+
+      if (!user) throw Error('Utilisateur inexistant')
+
+      const passwordResetToken = await createPasswordResetToken(user.id, crypto({ length: 16 }))
+
+      sendResetPasswordEmail(email, passwordResetToken.token)
+
+      return true
     },
-    deleteUser: (_, { id }) => {
-      return User.destroy({ where: { id } })
+    resetPassword: async (_, { token, password }) => {
+      const passwordResetToken = await findPasswordResetToken({ token })
+      const user = await findUser({ id: passwordResetToken.UserId })
+
+      await updateUser(user, { password })
+
+      return true
+    },
+    updateUser: () => {
+    },
+    deleteUser: () => {
     },
   }
 }

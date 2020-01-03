@@ -13,9 +13,10 @@ export default gql`
     createUser(input: UserInput!): User!
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): Boolean
-    login(input: LoginInput!): String!
-    signup(input: UserInput!): String!
+    login(email: String!, password: String!): String!
     activate(email: String!, token: String!): Boolean!
+    triggerPasswordReset(email: String!): Boolean!
+    resetPassword(token: String!, password: String!): Boolean!
   }
 
   type User {
@@ -30,11 +31,6 @@ export default gql`
     email: String!
     password: String!
     role: Role!
-  }
-
-  input LoginInput {
-    email: String!
-    password: String!
   }
 
   enum Role {

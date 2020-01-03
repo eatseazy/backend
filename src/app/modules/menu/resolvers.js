@@ -1,21 +1,25 @@
-/*import { Menu, Restaurant } from '../../../database/models'
+import models from '@models'
+
+const {
+  Menu,
+} = models
 
 export default {
+  Query: {
+    myMenu: () => {
+
+    }
+  },
   Mutation: {
     createMenu: async (...args) => {
-      const [, { input }, { loggedUser }] = args
+      const [, { input }] = args
 
-      if (!loggedUser) throw new Error('You are not authenticated !')
+      const menu = await Menu.create({
+        name: input.name,
+        description: input.description || '',
+      })
 
-      const restaurant = await Restaurant.findOne({ _id: input.restaurant })
-      if (!restaurant) throw new Error('An error has occured, Restaurant does not exist !')
-
-      const newMenu = await Menu.create({ ...input })
-
-      restaurant.menus.push(newMenu._id)
-      await restaurant.save()
-
-      return newMenu.populate('restaurant').execPopulate()
-    }
-  }
-}*/
+      console.log(menu)
+    },
+  },
+}
