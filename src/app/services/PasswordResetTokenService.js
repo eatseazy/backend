@@ -17,7 +17,5 @@ export const createPasswordResetToken = (UserId, token) => {
 }
 
 export const deletePasswordResetToken = async (UserId, token) => {
-  const passwordResetToken = findPasswordResetToken({ UserId, token })
-
-  await passwordResetToken.delete()
+  await findPasswordResetToken({ UserId, token }).delete()
 }

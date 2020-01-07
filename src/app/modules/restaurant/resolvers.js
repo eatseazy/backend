@@ -1,8 +1,19 @@
 import models from '@models'
 
+import {
+  findUser,
+  findRestaurantFoodTag,
+  findRestaurantByUser,
+  findFoodTag,
+  findFoodTags,
+  addRestaurantFoodTag,
+  removeRestaurantFoodTag,
+} from '@services'
+
 const {
   User,
   Restaurant,
+  FoodTag,
 } = models
 
 export default {
@@ -29,16 +40,25 @@ export default {
         where: {
           UserId: user.id
         },
-        include: [{
-          model: User,
-          as: 'Owner',
-        }],
+        include: [
+          {
+            association: 'Owner',
+          },
+          {
+            association: 'FoodTags',
+          },
+        ],
         attributes: ['name','phone','description','address','city','zipCode'],
       })
+
+      console.log("tags", restaurant.FoodTags)
 
       if (!restaurant) throw new Error('No restaurant found for current user')
 
       return restaurant
+    },
+    allFoodTags: () => {
+      return findFoodTags()
     }
   },
 
@@ -92,6 +112,34 @@ export default {
       } catch (error) {
         throw new Error(error)
       }
-    }
-  }
+    },
+    addRestaurantFoodTag: async (...args) => {
+      const [, { tag }, { loggedUser }] = args
+
+      const user = await findUser({ email: loggedUser.email })
+      const restaurant = await findRestaurantByUser(user)
+      const foodTag = await findFoodTag({ name: tag })
+
+      const foodTagAlreadyAdded = await findRestaurantFoodTag({
+        RestaurantId: restaurant.id,
+        FoodTagId: foodTag.id,
+      })
+
+      if (foodTagAlreadyAdded) throw Error('Tag déjà ajouté')
+
+      await addRestaurantFoodTag(restaurant.id, foodTag.id)
+
+      return true
+    },
+    removeRestaurantFoodTag: async (_, { tag }, { loggedUser }) => {
+      const user = await findUser({ email: loggedUser.email })
+
+      const restaurant = await findRestaurantByUser(user)
+      const foodTag = await findFoodTag({ name: tag })
+
+      if (await removeRestaurantFoodTag(restaurant.id, foodTag.id) <= 0) throw Error("Vous ne pouvez pas supprimer un tag qui n'a pas été sélectionner")
+
+      return true
+    },
+  },
 }

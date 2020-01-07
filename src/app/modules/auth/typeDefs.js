@@ -6,4 +6,17 @@ export default gql`
 
   type Query {
     me: User @auth
+  }
+
+  type Mutation {
+    register(input: RegisterInput!): User!
+    login(email: String!, password: String!): String!
+    triggerPasswordReset(email: String!): Boolean!
+    resetPassword(token: String!, password: String!): Boolean!
+  }
+
+  input RegisterInput {
+    email: String!,
+    password: String!,
+    role: Role!,
   }`

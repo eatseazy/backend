@@ -1,3 +1,5 @@
 export * from './UserService'
+export * from './RestaurantService'
 export * from './PasswordResetTokenService'
 export * from './VerificationTokenService'
+export * from './FoodTag'

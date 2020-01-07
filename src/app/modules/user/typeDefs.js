@@ -10,13 +10,15 @@ export default gql`
   }
 
   type Mutation {
-    createUser(input: UserInput!): User!
     updateUser(id: ID!, input: UserInput!): User!
     deleteUser(id: ID!): Boolean
-    login(email: String!, password: String!): String!
     activate(email: String!, token: String!): Boolean!
-    triggerPasswordReset(email: String!): Boolean!
-    resetPassword(token: String!, password: String!): Boolean!
+  }
+
+  type UserInput {
+    email: String!
+    password: String!
+    role: Role!
   }
 
   type User {
@@ -25,12 +27,6 @@ export default gql`
     password: String!
     role: Role!
     status: Status!
-  }
-
-  input UserInput {
-    email: String!
-    password: String!
-    role: Role!
   }
 
   enum Role {

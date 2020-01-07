@@ -17,7 +17,5 @@ export const createVerificationToken = (UserId, token) => {
 }
 
 export const deleteVerificationToken = async (UserId, token) => {
-  const verificationToken = findVerificationToken({ UserId, token })
-
-  await verificationToken.delete()
+  await findVerificationToken({ UserId, token }).delete()
 }

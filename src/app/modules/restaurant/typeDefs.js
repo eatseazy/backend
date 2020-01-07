@@ -9,12 +9,15 @@ export default gql`
   type Query {
     restaurants: [Restaurant!]! @auth
     myRestaurant: Restaurant! @auth
+    allFoodTags: [FoodTag]!
   }
 
   type Mutation {
     createRestaurant(input: RestaurantInput!): Restaurant! @auth
     updateRestaurant(input: RestaurantInput!): Restaurant! @auth
     deleteRestaurant(id: ID!): Boolean! @auth
+    addRestaurantFoodTag(tag: String!): Boolean
+    removeRestaurantFoodTag(tag: String!): Boolean
   }
 
   type Restaurant {
@@ -39,4 +42,8 @@ export default gql`
     city: String
     zipCode: String
     tags: [String]
+  }
+
+  type FoodTag {
+    name: String!
   }`

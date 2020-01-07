@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'UserId',
       onDelete: 'CASCADE',
     })
+
+    models.Restaurant.belongsToMany(models.FoodTag, {
+      through: models.RestaurantFoodTag,
+      unique: false,
+    })
   }
 
   return Restaurant

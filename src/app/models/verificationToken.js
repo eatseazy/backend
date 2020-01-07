@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
+  }, {
+    updatedAt: false,
   })
 
   VerificationToken.associate = models => {
