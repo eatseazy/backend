@@ -15,7 +15,7 @@ export default gql`
     activate(email: String!, token: String!): Boolean!
   }
 
-  type UserInput {
+  input UserInput {
     email: String!
     password: String!
     role: Role!
