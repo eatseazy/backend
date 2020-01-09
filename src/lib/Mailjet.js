@@ -2,7 +2,7 @@ const mailjet = require('node-mailjet').connect('d827f7832a6ef8ec14fd852e84f8ca9
 
 const sendEmailWithTemplate = async (TemplateId, to, Variables = {}) => {
   try {
-    return await mailjet
+    await mailjet
       .post('send', {'version': 'v3.1'})
       .request({
         'Messages': [
@@ -20,6 +20,8 @@ const sendEmailWithTemplate = async (TemplateId, to, Variables = {}) => {
           }
         ]
       })
+
+    return true
   } catch (error) {
     console.log('[lib][Mailjet:sendEmailWithTemplate] :', error)
     return false
