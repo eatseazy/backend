@@ -9,7 +9,7 @@ export default gql`
   }
 
   type Mutation {
-    register(input: RegisterInput!): User!
+    register(input: RegisterInput!): Boolean!
     login(email: String!, password: String!): String!
     triggerPasswordReset(email: String!): Boolean!
     resetPassword(token: String!, password: String!): Boolean!

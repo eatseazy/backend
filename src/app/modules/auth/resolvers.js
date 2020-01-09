@@ -32,9 +32,7 @@ export default {
       const user = await createUser(input)
       const verificationToken = await createVerificationToken(user.id, crypto({ length: 16 }))
 
-      await sendVerificationEmail(user.email, verificationToken.token)
-
-      return user
+      return await sendVerificationEmail(user.email, verificationToken.token)
     },
     triggerPasswordReset: async (_, { email }) => {
         const user = await findUser({ email })
