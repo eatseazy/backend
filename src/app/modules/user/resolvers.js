@@ -30,7 +30,11 @@ export default {
     },
     updateUser: () => {
     },
-    deleteUser: () => {
+    deleteUser: async (_, { id }) => {
+      const user = await findUser({ id })
+      await user.destroy()
+
+      return true
     },
   }
 }
