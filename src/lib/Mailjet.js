@@ -49,7 +49,7 @@ export const sendResetPasswordEmailConfirmation = to => {
 }
 
 export const sendActivationEmailConfirmation = (to, userRole) => {
-  return sendEmailWithTemplate((userRole === 'RESTAURANT') ? 1161686:1161686 , to, {
+  return sendEmailWithTemplate((userRole === 'RESTAURANT') ? 1161686:1171532 , to, {
     email: to,
   })
 }
