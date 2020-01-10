@@ -48,14 +48,8 @@ export const sendResetPasswordEmailConfirmation = to => {
   })
 }
 
-export const sendRestaurantActivationEmailConfirmation = to => {
-  return sendEmailWithTemplate(1161686, to, {
-    email: to,
-  })
-}
-
-export const sendClientActivationEmailConfirmation = to => {
-  return sendEmailWithTemplate(1161686, to, {
+export const sendActivationEmailConfirmation = (to, userRole) => {
+  return sendEmailWithTemplate((userRole === 'RESTAURANT') ? 1161686:1161686 , to, {
     email: to,
   })
 }
