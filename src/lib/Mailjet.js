@@ -48,3 +48,14 @@ export const sendResetPasswordEmailConfirmation = to => {
   })
 }
 
+export const sendRestaurantActivationEmailConfirmation = to => {
+  return sendEmailWithTemplate(1161686, to, {
+    email: to,
+  })
+}
+
+export const sendClientActivationEmailConfirmation = to => {
+  return sendEmailWithTemplate(1161686, to, {
+    email: to,
+  })
+}

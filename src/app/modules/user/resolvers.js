@@ -4,6 +4,11 @@ import {
   findUsers,
 } from '@services'
 
+import {
+  sendRestaurantActivationEmailConfirmation,
+  sendClientActivationEmailConfirmation,
+} from 'lib/Mailjet'
+
 export default {
   Query: {
     users: () => {
@@ -24,6 +29,9 @@ export default {
 
       if (verificationToken && token === verificationToken.token) {
         await updateUser({status: 'ENABLED'})
+
+        if (user.role === 'RESTAURANT') await sendRestaurantActivationEmailConfirmation(user.email)
+        else if (user.role === 'CLIENT') await sendClientActivationEmailConfirmation(user.email)
       }
 
       return user.status === 'ENABLED'
