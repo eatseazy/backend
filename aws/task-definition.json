@@ -32,6 +32,10 @@
         {
           "name": "PORT",
           "value": "80"
+        },
+        {
+          "name": "S3_BUCKET",
+          "value": "eatseazy-backend-production"
         }
       ],
       "resourceRequirements": null,
