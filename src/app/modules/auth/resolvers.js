@@ -29,6 +29,8 @@ export default {
       return await user.createToken()
     },
     register: async (_, { input }) => {
+      if (await findUser({ email: input.email })) throw Error('Ce courriel existe déjà')
+
       const user = await createUser(input)
       const verificationToken = await createVerificationToken(user.id, crypto({ length: 16 }))
 
