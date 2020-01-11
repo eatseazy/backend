@@ -47,6 +47,14 @@
         {
           "valueFrom": "arn:aws:ssm:eu-west-2:299179703921:parameter/eatseazy/production/backend-jwtSecret",
           "name": "JWT_SECRET"
+        },
+        {
+          "valueFrom": "arn:aws:ssm:eu-west-2:299179703921:parameter/eatseazy/production/backend-jwtSecret",
+          "name": "AWS_ACCESS_KEY_ID"
+        },
+        {
+          "valueFrom": "arn:aws:ssm:eu-west-2:299179703921:parameter/eatseazy/production/backend-AWS_SECRET_ACCESS_KEY",
+          "name": "AWS_SECRET_ACCESS_KEY"
         }
       ],
       "dockerSecurityOptions": null,

@@ -6,6 +6,7 @@ import {
   MenuModule,
   RestaurantModule,
   UserModule,
+  S3Module,
 } from '@modules'
 
 const AppModule = new GraphQLModule({
@@ -14,7 +15,8 @@ const AppModule = new GraphQLModule({
     BookingModule,
     MenuModule,
     RestaurantModule,
-    UserModule
+    UserModule,
+    S3Module,
   ],
   resolversComposition,
 })
