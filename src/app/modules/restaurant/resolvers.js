@@ -1,5 +1,4 @@
 import models from '@models'
-
 import {
   findUser,
   findRestaurantFoodTag,
@@ -13,7 +12,6 @@ import {
 const {
   User,
   Restaurant,
-  FoodTag,
 } = models
 
 export default {
@@ -50,8 +48,6 @@ export default {
         ],
         attributes: ['name','phone','description','address','city','zipCode'],
       })
-
-      console.log("tags", restaurant.FoodTags)
 
       if (!restaurant) throw new Error('No restaurant found for current user')
 
@@ -117,6 +113,9 @@ export default {
       const [, { tag }, { loggedUser }] = args
 
       const user = await findUser({ email: loggedUser.email })
+
+      if (!user) throw Error('Utilisateur inexistant')
+
       const restaurant = await findRestaurantByUser(user)
       const foodTag = await findFoodTag({ name: tag })
 
@@ -133,6 +132,8 @@ export default {
     },
     removeRestaurantFoodTag: async (_, { tag }, { loggedUser }) => {
       const user = await findUser({ email: loggedUser.email })
+
+      if (!user) throw Error('Utilisateur inexistant')
 
       const restaurant = await findRestaurantByUser(user)
       const foodTag = await findFoodTag({ name: tag })

@@ -6,13 +6,7 @@ const {
   VerificationToken,
 } = models
 
-export const findUser = async args => {
-  const user = await User.findOne({ where: { ...args } })
-
-  if (!user) throw Error('Utilisateur inexistant')
-
-  return user
-}
+export const findUser = async args => User.findOne({ where: { ...args } })
 
 export const findUsers = (args = {}) => {
   return User.findAll({ where: { ...args } })

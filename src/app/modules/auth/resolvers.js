@@ -22,6 +22,7 @@ export default {
     login: async (_, { email, password }) => {
       const user = await findUser({ email })
 
+      if (!user) throw Error('Utilisateur inexistant')
       if (user.status === 'DISABLED') throw Error("Votre compte n'est pas activé")
       if (user.status === 'BLOCKED') throw Error('Votre compte a été bloqué')
       if (!await user.validPassword(password)) throw Error("La combinaison nom d'utilisateur/mot de passe fournie n'existe pas")

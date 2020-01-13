@@ -16,6 +16,7 @@ export default {
     activate: async (_, { email, token }) => {
       const user = await findUser({ email })
 
+      if (!user) throw Error('Utilisateur inexistant')
       if (user.status === 'ENABLED') throw Error('Votre compte est déjà activé')
       if (user.status === 'BLOCKED') throw Error('Votre compte a été bloqué')
 
@@ -35,6 +36,8 @@ export default {
     },
     deleteUser: async (_, { id }) => {
       const user = await findUser({ id })
+      if (!user) throw Error('Utilisateur inexistant')
+
       await user.destroy()
 
       return true
