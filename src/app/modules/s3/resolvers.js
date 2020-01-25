@@ -1,4 +1,4 @@
-import { getSignedUrl } from '@services'
+import { getSignedUrl } from '@modules/s3/services'
 
 export default {
   Mutation: {

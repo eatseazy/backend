@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   Restaurant.associate = models => {
+    models.Restaurant.hasMany(models.RestaurantMenu, {
+      as: 'Menus',
+      foreignKey: 'RestaurantId',
+    })
+
     models.Restaurant.belongsTo(models.User, {
       as: 'Owner',
       foreignKey: 'UserId',

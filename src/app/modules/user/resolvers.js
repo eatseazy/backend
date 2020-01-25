@@ -1,8 +1,8 @@
 import {
-  updateUser,
   findUser,
   findUsers,
-} from '@services'
+  updateUser,
+} from '@modules/user/services'
 
 import { sendActivationEmailConfirmation } from 'lib/Mailjet'
 

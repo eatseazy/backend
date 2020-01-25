@@ -1,13 +1,17 @@
-import models from '@models'
 import {
   findUser,
+} from '@modules/user/services'
+
+import {
   findRestaurantFoodTag,
   findRestaurantByUser,
   findFoodTag,
   findFoodTags,
   addRestaurantFoodTag,
   removeRestaurantFoodTag,
-} from '@services'
+} from '@modules/restaurant/services'
+
+import models from '@models'
 
 const {
   User,

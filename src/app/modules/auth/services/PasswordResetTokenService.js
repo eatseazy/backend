@@ -2,9 +2,7 @@ import models from '@models'
 
 const { PasswordResetToken } = models
 
-export const findPasswordResetToken = args => {
-  return PasswordResetToken.findOne({ where: { ...args } })
-}
+export const findPasswordResetToken = args => PasswordResetToken.findOne({ where: { ... args } })
 
 export const createPasswordResetToken = (UserId, token) => {
   const now = new Date()
@@ -16,6 +14,4 @@ export const createPasswordResetToken = (UserId, token) => {
   })
 }
 
-export const deletePasswordResetToken = async (UserId, token) => {
-  await findPasswordResetToken({ UserId, token }).delete()
-}
+export const deletePasswordResetToken = (UserId, token) => findPasswordResetToken({ UserId, token }).delete()

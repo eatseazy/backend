@@ -2,9 +2,7 @@ import models from '@models'
 
 const { VerificationToken } = models
 
-export const findVerificationToken = args => {
-  return VerificationToken.findOne({ where: { ...args } })
-}
+export const findVerificationToken = args => VerificationToken.findOne({ where: { ...args } })
 
 export const createVerificationToken = (UserId, token) => {
   const now = new Date()
@@ -16,6 +14,4 @@ export const createVerificationToken = (UserId, token) => {
   })
 }
 
-export const deleteVerificationToken = async (UserId, token) => {
-  await findVerificationToken({ UserId, token }).delete()
-}
+export const deleteVerificationToken = (UserId, token) => findVerificationToken({ UserId, token }).delete()

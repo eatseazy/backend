@@ -1,18 +1,22 @@
-import crypto from "crypto-random-string"
+import crypto from 'crypto-random-string'
+
 import {
   findUser,
-  findPasswordResetToken,
   updateUser,
   createUser,
+} from '@modules/user/services'
+
+import {
+  findPasswordResetToken,
   createVerificationToken,
   createPasswordResetToken,
-} from '@services'
+} from '@modules/auth/services'
 
 import {
   sendResetPasswordEmail,
   sendResetPasswordEmailConfirmation,
   sendVerificationEmail,
-} from "lib/Mailjet"
+} from 'lib/Mailjet'
 
 export default {
   Query: {
@@ -23,11 +27,11 @@ export default {
       const user = await findUser({ email })
 
       if (!user) throw Error('Utilisateur inexistant')
-      if (user.status === 'DISABLED') throw Error("Votre compte n'est pas activé")
+      if (user.status === 'DISABLED') throw Error('Votre compte n\'est pas activé')
       if (user.status === 'BLOCKED') throw Error('Votre compte a été bloqué')
-      if (!await user.validPassword(password)) throw Error("La combinaison nom d'utilisateur/mot de passe fournie n'existe pas")
+      if (!await user.validPassword(password)) throw Error('La combinaison nom d\'utilisateur/mot de passe fournie n\'existe pas')
 
-      return await user.createToken()
+      return user.createToken()
     },
     register: async (_, { input }) => {
       if (await findUser({ email: input.email })) throw Error('Ce courriel existe déjà')

@@ -7,43 +7,36 @@ export default gql`
   }
 
   type Query {
-    myMenu: [Menu]!
+    myMenus: [Menu]! @auth @protect(role: "RESTAURANT")
   }
 
   type Mutation {
-    createMenu(input: MenuInput): Menu! @auth @protect(role: "RESTAURANT")
+    createMenu(input: MenuInput!): Menu! @auth @protect(role: "RESTAURANT")
+    createFoodItem(input: FoodItemInput!): FoodItem! @auth @protect(role: "RESTAURANT")
+    deleteFoodItem(id: ID!): Boolean! @auth @protect(role: "RESTAURANT")
   }
 
   type Menu {
     id: ID!
     name: String!
-    description: String
+    foodItems: [FoodItem]
   }
 
-  type MenuCategorie {
+  type FoodItem {
     id: ID!
-    Menu: Menu!
     categorie: MenuCategories!
-    foods: [Food]!
-    tva: Float!
-  }
-
-  type Food {
-    id: ID!
-    MenuCategorie: MenuCategorie!
     name: String!
     priceHT: Float!
     priceTTC: Float!
   }
 
   input MenuInput {
-    RestaurantId: ID!
+    restaurantId: ID!
     name: String!
-    description: String
   }
 
-  input FoodInput {
-    MenuCategorieId: ID!
+  input FoodItemInput {
+    categorie: MenuCategories!
     name: String!
     priceHT: Float!
     priceTTC: Float!

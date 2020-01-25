@@ -1,16 +1,13 @@
 import models from '@models'
 
 const {
-  User,
   Restaurant,
-  VerificationToken,
+  User,
 } = models
 
 export const findUser = async args => User.findOne({ where: { ...args } })
 
-export const findUsers = (args = {}) => {
-  return User.findAll({ where: { ...args } })
-}
+export const findUsers = async (args = {}) => User.findAll({ where: { ...args } })
 
 export const createUser = async ({ email, password, role }) => {
   const user = await User.create({
@@ -22,16 +19,9 @@ export const createUser = async ({ email, password, role }) => {
 
   if (role === 'RESTAURANT') await Restaurant.create({ UserId: user.id })
 
-  return user
+  return user;
 }
 
-export const updateUser = (user, payload) => {
-  return user.update({ ...payload })
-}
+export const updateUser = (user, payload) => user.update({ ...payload })
 
-export const createUserVerificationToken = (UserId, token) => {
-  return VerificationToken.create({
-    UserId,
-    token,
-  })
-}
+
