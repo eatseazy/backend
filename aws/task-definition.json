@@ -53,7 +53,7 @@
           "name": "JWT_SECRET"
         },
         {
-          "valueFrom": "arn:aws:ssm:eu-west-2:299179703921:parameter/eatseazy/production/backend-jwtSecret",
+          "valueFrom": "arn:aws:ssm:eu-west-2:299179703921:parameter/eatseazy/production/backend-AWS_ACCESS_KEY_ID",
           "name": "AWS_ACCESS_KEY_ID"
         },
         {
